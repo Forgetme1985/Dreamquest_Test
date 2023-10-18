@@ -14,18 +14,16 @@ public class GameManager : GenericSingletonClass<GameManager>
     private bool isDraggingCube;
     private Vector3 initializedPos;
     private int count;
-
-    
     // Start is called before the first frame update
     void Start()
     {
-        LoadGame();
+        LoadGame();// resume game if it has a save file
     }
 
     // Update is called once per frame
     void Update()
     {
-
+        //dargging a cube
         if (Input.GetMouseButton(0) && isDraggingCube)
         {
             RaycastHit hit;
@@ -33,21 +31,27 @@ public class GameManager : GenericSingletonClass<GameManager>
             {
                 if (hit.collider.name == "Ground")
                 {
-                    Vector3 pos = Vector3.zero + new Vector3(hit.point.x, initializedPos.y, hit.point.z);
+                    Vector3 pos = new Vector3(hit.point.x, initializedPos.y, hit.point.z);
                     isDraggingCube = true;
                     tempCube.GetComponent<Rigidbody>().MovePosition(pos);
-
                 }
-                else if (hit.collider.tag == "CubeObject" && hit.collider.name != tempCube.name && hit.normal.y > 0)
+                else if (hit.collider.tag == "CubeObject")
                 {
-                    Debug.Log(hit.transform.name);
-                    Debug.Log(hit.normal);
-                    tempCube.GetComponent<Rigidbody>().MovePosition(new Vector3(hit.transform.position.x, hit.transform.position.y + 1f, hit.transform.position.z));
+                    if (hit.collider.name != tempCube.name && hit.normal.y > 0)
+                    {
+                        //put a cube on the top of the other cube while dragging
+                        tempCube.GetComponent<Rigidbody>().MovePosition(new Vector3(hit.transform.position.x, hit.transform.position.y + 1f, hit.transform.position.z));
+                        
+                    }
+                    tempCube.GetComponent<Rigidbody>().velocity = Vector3.zero;
                 }
+                tempCube.GetComponent<Rigidbody>().velocity = Vector3.zero;
             }
         }
+        //place a cube
         else if (Input.GetMouseButtonUp(0) && isDraggingCube)
         {
+           
             if (tempCube.name.Contains("red"))
             {
                 UIManager.Instance.decreaseCounter(0);
@@ -68,6 +72,7 @@ public class GameManager : GenericSingletonClass<GameManager>
             AudioManager.Instance.PlayPlaceSound();
 
         }
+        //gather a cube
         else if (Input.GetMouseButtonUp(1))
         {
             RaycastHit hit;
@@ -92,6 +97,7 @@ public class GameManager : GenericSingletonClass<GameManager>
                 }
             }
         }
+        //save and quit game
         if (Input.GetKeyUp(KeyCode.Escape))
         {
             SaveGame();
@@ -129,6 +135,7 @@ public class GameManager : GenericSingletonClass<GameManager>
             Destroy(tempCube);
         }
     }
+    //save a game file using XML
     public void SaveGame()
     {
         XmlDocument xmlDocument = new XmlDocument();
@@ -154,6 +161,7 @@ public class GameManager : GenericSingletonClass<GameManager>
         xmlDocument.Save("DreamQuestConfig.txt");
           
     }
+    //Load the game file
     public void LoadGame()
     {
         

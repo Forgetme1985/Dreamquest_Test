@@ -1,0 +1,9 @@
+<DreamQuestConfig version="1.0">
+  <CubeObjects>
+    <CubeObject Name="cube red1(Clone)" PosX="-1.577171" PosY="0.557" PosZ="-11.46203" RotX="0" RotY="0" RotZ="0" />
+    <CubeObject Name="cube blue3(Clone)" PosX="0.2281965" PosY="0.557" PosZ="-11.68794" RotX="0" RotY="0" RotZ="0" />
+    <CubeObject Name="cube green4(Clone)" PosX="1.377599" PosY="0.557" PosZ="-11.57626" RotX="0" RotY="0" RotZ="0" />
+    <CubeObject Name="cube blue1(Clone)" PosX="0.2281965" PosY="1.557" PosZ="-11.68794" RotX="0" RotY="0" RotZ="0" />
+    <CubeObject Name="cube red2(Clone)" PosX="-1.577171" PosY="1.557" PosZ="-11.46203" RotX="0" RotY="0" RotZ="0" />
+  </CubeObjects>
+</DreamQuestConfig>
