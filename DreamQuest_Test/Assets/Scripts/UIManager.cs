@@ -22,6 +22,7 @@ public class UIManager : GenericSingletonClass<UIManager>
         lableBlueCube.text = blueCubeCounter + "";
 
     }
+    
     public void increaseCounter(int colorCode)
     {
         if (colorCode == 0)
